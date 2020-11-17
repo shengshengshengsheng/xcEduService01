@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * description:好房的BeanCopy工具类
  *
- * @author xuqiangsheng
+ * @author shengsheng
  * @date 2020/9/24 13:03
  */
 public class BeanCopyUtils {
@@ -19,7 +19,7 @@ public class BeanCopyUtils {
      * BeanCopy的方法
      * 该方法是对org.springframework.beans.BeanUtils.copyProperties(Object source, Object target, String... ignoreProperties)
      * 的封装，旨在解决beanCopy时的空值问题
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/9/24 13:06
      * @param source the source bean
      * @param target the target bean

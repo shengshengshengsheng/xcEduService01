@@ -5,7 +5,7 @@ import com.xuecheng.framework.model.response.ResultCode;
 /**
  * description:自定义异常类
  *
- * @author xuqiangsheng
+ * @author shengsheng
  * @date 2020/11/17 15:25
  */
 public class CustomException extends RuntimeException{

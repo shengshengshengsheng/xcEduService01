@@ -31,7 +31,7 @@ public interface CmsPageControllerApi {
 
     /**
      * 添加页面
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 9:16
      * @param cmsPage
      * @return com.xuecheng.framework.domain.cms.response.CmsPageResult
@@ -41,7 +41,7 @@ public interface CmsPageControllerApi {
 
     /**
      * 通过id查询页面信息
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 13:01
      * @param id 主键id
      * @return com.xuecheng.framework.domain.cms.CmsPage
@@ -51,7 +51,7 @@ public interface CmsPageControllerApi {
 
     /**
      * 修改页面
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 13:05
      * @param id 主键id
      * @param cmsPage
@@ -62,7 +62,7 @@ public interface CmsPageControllerApi {
 
     /**
      * 删除页面
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 15:14
      * @param id 主键id
      * @return com.xuecheng.framework.model.response.ResponseResult

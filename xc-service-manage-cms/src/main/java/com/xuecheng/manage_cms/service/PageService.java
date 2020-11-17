@@ -95,7 +95,7 @@ public class PageService {
 
     /**
      * 新增页面
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 9:24
      * @param cmsPage
      * @return com.xuecheng.framework.domain.cms.response.CmsPageResult
@@ -118,7 +118,7 @@ public class PageService {
 
     /**
      * 通过id查询
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 13:04
      * @param id
      * @return com.xuecheng.framework.domain.cms.CmsPage
@@ -130,7 +130,7 @@ public class PageService {
 
     /**
      * 更新用户信息
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 13:18
      * @param id 要更新的主键id
      * @param cmsPage 要更新的信息
@@ -148,7 +148,7 @@ public class PageService {
 
     /**
      * 删除页面
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 15:15
      * @param id
      * @return com.xuecheng.framework.model.response.ResponseResult

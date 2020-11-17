@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * description:异常捕捉类
  *
- * @author xuqiangsheng
+ * @author shengsheng
  * @date 2020/11/17 15:30
  */
 @ControllerAdvice
@@ -31,7 +31,7 @@ public class ExceptionCatch {
             ImmutableMap.builder();
     /**
      * 捕捉自定义CustomException异常
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 15:35
      * @param e 异常信息
      * @return com.xuecheng.framework.model.response.ResponseResult
@@ -46,7 +46,7 @@ public class ExceptionCatch {
 
     /**
      * 捕获Exception异常
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 15:48
      * @param e
      * @return com.xuecheng.framework.model.response.ResponseResult

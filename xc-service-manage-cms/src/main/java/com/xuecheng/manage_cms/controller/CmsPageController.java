@@ -34,7 +34,7 @@ public class CmsPageController implements CmsPageControllerApi {
 
     /**
      * 新增页面
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 9:25
      * @param cmsPage
      * @return com.xuecheng.framework.domain.cms.response.CmsPageResult
@@ -47,7 +47,7 @@ public class CmsPageController implements CmsPageControllerApi {
 
     /**
      * 通过id查询页面信息
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 13:01
      * @param id 主键id
      * @return com.xuecheng.framework.domain.cms.CmsPage
@@ -60,7 +60,7 @@ public class CmsPageController implements CmsPageControllerApi {
 
     /**
      * 修改页面信息
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 13:06
      * @param id 主键id
      * @param cmsPage 要修改的信息
@@ -74,7 +74,7 @@ public class CmsPageController implements CmsPageControllerApi {
 
     /**
      * 删除页面
-     * @author XuQiangsheng
+     * @author shengsheng
      * @date 2020/11/17 15:14
      * @param id
      * @return com.xuecheng.framework.model.response.ResponseResult
