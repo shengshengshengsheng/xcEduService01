@@ -53,7 +53,4 @@ public class CmsPage {
     private String htmlFileId;
     //数据Url
     private String dataUrl;
-
-
-
 }

@@ -47,7 +47,10 @@ public class PageService {
         }
         //条件匹配器 - 模糊查询
         ExampleMatcher exampleMatcher = ExampleMatcher.matching();
+        //别名模糊查询
         exampleMatcher = exampleMatcher.withMatcher("pageAliase", ExampleMatcher.GenericPropertyMatchers.contains());
+        //页面名称模糊查询
+        exampleMatcher = exampleMatcher.withMatcher("pageName", ExampleMatcher.GenericPropertyMatchers.contains());
         //条件值
         CmsPage cmsPage = new CmsPage();
         /*BeanUtils.copyProperties(queryPageRequest,cmsPage);*/
@@ -55,11 +58,18 @@ public class PageService {
         if(StringUtils.isNotBlank(siteId)){
             cmsPage.setSiteId(siteId);
         }
+        String pageType = queryPageRequest.getPageType();
+        if(StringUtils.isNotBlank(pageType)){
+            cmsPage.setPageType(pageType);
+        }
         String pageAliase = queryPageRequest.getPageAliase();
         if(StringUtils.isNotBlank(pageAliase)){
             cmsPage.setPageAliase(pageAliase);
         }
-        logger.info("findList:cmsPage:{}", JSON.toJSONString(cmsPage));
+        String pageName = queryPageRequest.getPageName();
+        if(StringUtils.isNotBlank(pageName)){
+            cmsPage.setPageName(pageName);
+        }
         //创建条件实例
         Example<CmsPage> example = Example.of(cmsPage,exampleMatcher);
         //分页参数
