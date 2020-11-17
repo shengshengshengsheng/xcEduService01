@@ -1,14 +1,14 @@
 package com.xuecheng.manage_cms.controller;
 
 import com.xuecheng.api.cms.CmsPageControllerApi;
+import com.xuecheng.framework.domain.cms.CmsPage;
 import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
+import com.xuecheng.framework.domain.cms.response.CmsPageResult;
 import com.xuecheng.framework.model.response.QueryResponseResult;
+import com.xuecheng.framework.model.response.ResponseResult;
 import com.xuecheng.manage_cms.service.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Administrator
@@ -40,5 +40,58 @@ public class CmsPageController implements CmsPageControllerApi {
         return queryResponseResult;*/
         //调用service
         return pageService.findList(page,size,queryPageRequest);
+    }
+
+    /**
+     * 新增页面
+     * @author XuQiangsheng
+     * @date 2020/11/17 9:25
+     * @param cmsPage
+     * @return com.xuecheng.framework.domain.cms.response.CmsPageResult
+    */
+    @Override
+    @GetMapping("/add")
+    public CmsPageResult add(@RequestBody CmsPage cmsPage) {
+        return pageService.add(cmsPage);
+    }
+
+    /**
+     * 通过id查询页面信息
+     * @author XuQiangsheng
+     * @date 2020/11/17 13:01
+     * @param id 主键id
+     * @return com.xuecheng.framework.domain.cms.CmsPage
+    */
+    @Override
+    @GetMapping("/get/{id}")
+    public CmsPage findById(@PathVariable("id") String id) {
+        return pageService.findById(id);
+    }
+
+    /**
+     * 修改页面信息
+     * @author XuQiangsheng
+     * @date 2020/11/17 13:06
+     * @param id 主键id
+     * @param cmsPage 要修改的信息
+     * @return com.xuecheng.framework.domain.cms.response.CmsPageResult
+    */
+    @Override
+    @PutMapping("/edit/{id}")
+    public CmsPageResult edit(@PathVariable("id") String id, @RequestBody CmsPage cmsPage) {
+        return pageService.update(id,cmsPage);
+    }
+
+    /**
+     * 删除页面
+     * @author XuQiangsheng
+     * @date 2020/11/17 15:14
+     * @param id
+     * @return com.xuecheng.framework.model.response.ResponseResult
+    */
+    @Override
+    @DeleteMapping("/del/{id}")
+    public ResponseResult delete(@PathVariable("id") String id) {
+        return pageService.delete(id);
     }
 }

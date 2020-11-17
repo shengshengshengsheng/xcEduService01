@@ -26,6 +26,17 @@ public interface CmsPageRepository extends MongoRepository<CmsPage,String> {
     CmsPage findByPageNameAndPageType(String pageName,String pageType);
 
     /**
+     * 根据页面名称、站点id、页面访问路径查询
+     * @author XuQiangsheng
+     * @date 2020/11/17 9:19
+     * @param pageName 页面名称
+     * @param siteId 站点id
+     * @param pageWebPath 页面访问路径
+     * @return com.xuecheng.framework.domain.cms.CmsPage
+    */
+    CmsPage findByPageNameAndSiteIdAndPageWebPath(String pageName,String siteId,String pageWebPath);
+
+    /**
      * 根据站点和页面类型查询记录数
      * @param siteId 站点id
      * @param pageType 页面类型

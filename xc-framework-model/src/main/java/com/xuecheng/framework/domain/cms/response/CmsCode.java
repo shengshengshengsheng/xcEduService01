@@ -4,7 +4,9 @@ import com.xuecheng.framework.model.response.ResultCode;
 import lombok.ToString;
 
 /**
- * Created by mrt on 2018/3/5.
+ *
+ * @author mrt
+ * @date 2018/3/5
  */
 @ToString
 public enum CmsCode implements ResultCode {
