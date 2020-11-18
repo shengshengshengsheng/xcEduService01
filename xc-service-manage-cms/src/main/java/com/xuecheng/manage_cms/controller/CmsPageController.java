@@ -1,6 +1,5 @@
 package com.xuecheng.manage_cms.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.xuecheng.api.cms.CmsPageControllerApi;
 import com.xuecheng.framework.domain.cms.CmsPage;
 import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
@@ -83,5 +82,18 @@ public class CmsPageController implements CmsPageControllerApi {
     @DeleteMapping("/del/{id}")
     public ResponseResult delete(@PathVariable("id") String id) {
         return pageService.delete(id);
+    }
+
+    /**
+     * 发布页面
+     * @author XuQiangsheng
+     * @date 2020/11/18 17:51
+     * @param pageId
+     * @return com.xuecheng.framework.model.response.ResponseResult
+    */
+    @Override
+    @PostMapping("/postPage/{pageId}")
+    public ResponseResult post(@PathVariable("pageId") String pageId) {
+        return pageService.postPage(pageId);
     }
 }

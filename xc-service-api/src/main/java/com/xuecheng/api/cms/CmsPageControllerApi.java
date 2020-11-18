@@ -69,4 +69,14 @@ public interface CmsPageControllerApi {
     */
     @ApiOperation("删除页面")
     ResponseResult delete(String id);
+
+    /**
+     * 发布页面
+     * @author XuQiangsheng
+     * @date 2020/11/18 17:48
+     * @param pageId 页面id
+     * @return com.xuecheng.framework.model.response.ResponseResult
+    */
+    @ApiOperation("发布页面")
+    ResponseResult post(String pageId);
 }
