@@ -1,6 +1,9 @@
 package com.xuecheng.test.freemarker.controller;
 
 import com.xuecheng.test.freemarker.model.Student;
+import net.minidev.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,14 +23,17 @@ public class FreemarkerController {
 
     @Autowired
     RestTemplate restTemplate;
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @RequestMapping("/banner")
     public String index_banner(Map<String, Object> map){
         //使用restTemplate请求轮播图的模型数据
-        ResponseEntity<Map> forEntity = restTemplate.getForEntity("http://localhost:31001/cms/config/getmodel/5a791725dd573c3574ee333f", Map.class);
+        ResponseEntity<Map> forEntity = restTemplate.getForEntity("http://localhost:31001/cms/config/getModel/5a791725dd573c3574ee333f", Map.class);
         Map body = forEntity.getBody();
+
         //设置模型数据
         map.putAll(body);
+        logger.info("index_banner:map:{}", JSONObject.toJSONString(map));
         return "index_banner";
     }
     @RequestMapping("/test1")

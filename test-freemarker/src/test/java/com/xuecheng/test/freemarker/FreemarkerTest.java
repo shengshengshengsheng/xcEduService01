@@ -8,9 +8,11 @@ import freemarker.template.TemplateException;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
 import java.util.*;
@@ -23,6 +25,7 @@ import java.util.*;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class FreemarkerTest {
+
 
     //基于模板生成静态化文件
     @Test
