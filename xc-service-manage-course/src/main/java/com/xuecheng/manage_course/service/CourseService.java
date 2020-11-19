@@ -4,12 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xuecheng.framework.domain.course.CourseBase;
 import com.xuecheng.framework.domain.course.Teachplan;
+import com.xuecheng.framework.domain.course.ext.CategoryNode;
 import com.xuecheng.framework.domain.course.ext.TeachplanNode;
 import com.xuecheng.framework.exception.ExceptionCast;
 import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
 import com.xuecheng.framework.model.response.ResponseResult;
+import com.xuecheng.manage_course.dao.CategoryMapper;
 import com.xuecheng.manage_course.dao.CourseBaseRepository;
 import com.xuecheng.manage_course.dao.TeachplanMapper;
 import com.xuecheng.manage_course.dao.TeachplanRepository;
@@ -38,6 +40,9 @@ public class CourseService {
 
     @Autowired
     TeachplanMapper teachplanMapper;
+
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     //课程计划查询
     public TeachplanNode findTeachplanList(String courseId){
@@ -122,7 +127,8 @@ public class CourseService {
         Page<CourseBase> all = this.courseBaseRepository.findAll(example, pageable);
         queryResult.setList(all.getContent());
         queryResult.setTotal(all.getTotalElements());
-        //TODO 查询列表
         return new QueryResponseResult(CommonCode.SUCCESS,queryResult);
     }
+
+
 }

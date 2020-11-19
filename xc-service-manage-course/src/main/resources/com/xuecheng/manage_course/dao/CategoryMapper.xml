@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuecheng.manage_course.dao.CategoryMapper">
+    <select id="findCategoryList" resultMap="categoryMap">
+        select *
+        from category
+        where parentid = '0'
+    </select>
+
+    <resultMap id="categoryMap" type="com.xuecheng.framework.domain.course.ext.CategoryNode">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="label" property="label"/>
+        <result column="parentid" property="parentid"/>
+        <result column="isshow" property="isshow"/>
+        <result column="orderby" property="orderby"/>
+        <result column="isleaf" property="isleaf"/>
+        <collection property="children"
+                    column="id"
+                    javaType="java.util.ArrayList"
+                    ofType="com.xuecheng.framework.domain.course.ext.CategoryNode"
+                    select="getNextNodeTree"/>
+    </resultMap>
+
+    <select id="getNextNodeTree" resultMap="NextTreeResultMap">
+        SELECT *
+        FROM category
+        WHERE parentid = #{id}
+    </select>
+
+    <resultMap id="NextTreeResultMap" type="com.xuecheng.framework.domain.course.ext.CategoryNode">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="label" property="label"/>
+        <result column="parentid" property="parentid"/>
+        <result column="isshow" property="isshow"/>
+        <result column="orderby" property="orderby"/>
+        <result column="isleaf" property="isleaf"/>
+        <collection property="children"
+                    column="id"
+                    javaType="java.util.ArrayList"
+                    ofType="com.xuecheng.framework.domain.course.ext.CategoryNode"
+                    select="getNextNodeTree"/>
+    </resultMap>
+</mapper>
