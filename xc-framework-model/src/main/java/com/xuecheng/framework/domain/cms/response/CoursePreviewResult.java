@@ -7,16 +7,18 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * Created by admin on 2018/3/5.
+ *
+ * @author admin
+ * @date 2018/3/5
  */
 @Data
 @ToString
 @NoArgsConstructor
 public class CoursePreviewResult extends ResponseResult {
-    public CoursePreviewResult(ResultCode resultCode, String url) {
+    public CoursePreviewResult(ResultCode resultCode, String previewUrl) {
         super(resultCode);
-        this.url = url;
+        this.previewUrl = previewUrl;
     }
 
-    String url;
+    String previewUrl;
 }

@@ -2,25 +2,29 @@ package com.xuecheng.manage_course.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xuecheng.framework.domain.cms.response.CoursePreviewResult;
 import com.xuecheng.framework.domain.course.CourseBase;
+import com.xuecheng.framework.domain.course.CourseMarket;
+import com.xuecheng.framework.domain.course.CoursePic;
 import com.xuecheng.framework.domain.course.Teachplan;
 import com.xuecheng.framework.domain.course.ext.CategoryNode;
 import com.xuecheng.framework.domain.course.ext.TeachplanNode;
+import com.xuecheng.framework.domain.course.response.CourseCode;
+import com.xuecheng.framework.domain.course.response.CoursePicResult;
+import com.xuecheng.framework.exception.CustomException;
 import com.xuecheng.framework.exception.ExceptionCast;
 import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
 import com.xuecheng.framework.model.response.ResponseResult;
-import com.xuecheng.manage_course.dao.CategoryMapper;
-import com.xuecheng.manage_course.dao.CourseBaseRepository;
-import com.xuecheng.manage_course.dao.TeachplanMapper;
-import com.xuecheng.manage_course.dao.TeachplanRepository;
+import com.xuecheng.manage_course.dao.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +46,10 @@ public class CourseService {
     TeachplanMapper teachplanMapper;
 
     @Autowired
-    private CategoryMapper categoryMapper;
+    private CoursePicRepository coursePicRepository;
+
+    @Autowired
+    private CourseMarketRepository courseMarketRepository;
 
     //课程计划查询
     public TeachplanNode findTeachplanList(String courseId){
@@ -131,4 +138,134 @@ public class CourseService {
     }
 
 
+    /**
+     * 添加课程基础信息
+     * @author XuQiangsheng
+     * @date 2020/11/20 8:26
+     * @param courseBase
+     * @return com.xuecheng.framework.model.response.ResponseResult
+    */
+    @Transactional
+    public ResponseResult addCourseBase(CourseBase courseBase) {
+        ExampleMatcher matcher = ExampleMatcher.matching();
+        Example<CourseBase> example = Example.of(courseBase,matcher);
+        List<CourseBase> all = courseBaseRepository.findAll(example);
+        if(!CollectionUtils.isEmpty(all)){
+            return new ResponseResult(CommonCode.FAIL);
+        }
+        courseBase.setId(null);
+        //课程状态默认为未发布
+        courseBase.setStatus("202001");
+        courseBaseRepository.save(courseBase);
+        return new ResponseResult(CommonCode.SUCCESS);
+    }
+
+    /**
+     * 存储课程图片
+     * @author XuQiangsheng
+     * @date 2020/11/20 8:38
+     * @param courseId
+     * @param pic
+     * @return com.xuecheng.framework.model.response.ResponseResult
+    */
+    public ResponseResult addCoursePic(String courseId, String pic) {
+        CoursePic coursePic = new CoursePic();
+        coursePic.setCourseid(courseId);
+        coursePic.setPic(pic);
+        CoursePic save = coursePicRepository.save(coursePic);
+        return new ResponseResult(CommonCode.SUCCESS);
+    }
+
+    /**
+     * 通过课程id查询课程图片
+     * @author XuQiangsheng
+     * @date 2020/11/20 8:50
+     * @param courseId
+     * @return com.xuecheng.framework.domain.course.response.CoursePicResult
+    */
+    public CoursePicResult findCoursePicList(String courseId) {
+        CoursePic coursePic = coursePicRepository.findById(courseId).orElse(null);
+        if(coursePic == null || StringUtils.isBlank(coursePic.getPic())){
+            return new CoursePicResult(CommonCode.FAIL,null);
+        }
+        return new CoursePicResult(CommonCode.SUCCESS,coursePic.getPic());
+    }
+
+    /**
+     * 删除课程图片
+     * @author XuQiangsheng
+     * @date 2020/11/20 8:54
+     * @param courseId 课程id
+     * @return com.xuecheng.framework.model.response.ResponseResult
+    */
+    public ResponseResult deleteCoursePic(String courseId) {
+        coursePicRepository.deleteById(courseId);
+        return new ResponseResult(CommonCode.SUCCESS);
+    }
+
+    /**
+     * 课程预览
+     * @author XuQiangsheng
+     * @date 2020/11/20 9:01
+     * @param id
+     * @return com.xuecheng.framework.domain.cms.response.CoursePreviewResult
+    */
+    public CoursePreviewResult preview(String id) {
+        //TODO 预览课程
+        String previewUrl = null;
+        return new CoursePreviewResult(CommonCode.SUCCESS,previewUrl);
+    }
+
+    public CourseBase getCourseBaseById(String courseId) {
+        Optional<CourseBase> optional = courseBaseRepository.findById(courseId);
+        return optional.orElse(null);
+    }
+
+    @Transactional
+    public ResponseResult updateCourseBase(String id, CourseBase courseBase) {
+        CourseBase one = this.getCourseBaseById(id);
+        if(one == null){
+            //抛出异常..
+            throw new CustomException(CourseCode.BASE_COURSE_IS_NULL);
+        }
+        //修改课程信息
+        one.setName(courseBase.getName());
+        one.setMt(courseBase.getMt());
+        one.setSt(courseBase.getSt());
+        one.setGrade(courseBase.getGrade());
+        one.setStudymodel(courseBase.getStudymodel());
+        one.setUsers(courseBase.getUsers());
+        one.setDescription(courseBase.getDescription());
+         courseBaseRepository.save(one);
+        return new ResponseResult(CommonCode.SUCCESS);
+    }
+
+    public CourseMarket getCourseMarketById(String courseId) {
+        Optional<CourseMarket> optional = courseMarketRepository.findById(courseId);
+        return optional.orElse(null);
+    }
+
+    @Transactional
+    public CourseMarket updateCourseMarket(String id, CourseMarket courseMarket) {
+        CourseMarket one = this.getCourseMarketById(id);
+        if(one!=null){
+            one.setCharge(courseMarket.getCharge());
+            //课程有效期，开始时间
+            one.setStartTime(courseMarket.getStartTime());
+            //课程有效期，结束时间
+            one.setEndTime(courseMarket.getEndTime());
+            one.setPrice(courseMarket.getPrice());
+            one.setQq(courseMarket.getQq());
+            one.setValid(courseMarket.getValid());
+            courseMarketRepository.save(one);
+        }else{
+            //添加课程营销信息
+            one = new CourseMarket();
+            BeanUtils.copyProperties(courseMarket, one);
+            //设置课程id
+            one.setId(id);
+            courseMarketRepository.save(one);
+        }
+        return one;
+    }
 }

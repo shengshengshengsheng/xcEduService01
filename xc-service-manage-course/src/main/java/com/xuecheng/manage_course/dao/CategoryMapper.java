@@ -7,4 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CategoryMapper {
 
     CategoryNode findCategoryList();
+
+    CategoryNode selectList();
+
 }

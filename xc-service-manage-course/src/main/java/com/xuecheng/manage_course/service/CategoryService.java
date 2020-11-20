@@ -16,6 +16,7 @@ public class CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
     public CategoryNode findCategoryList() {
-        return categoryMapper.findCategoryList();
+        return categoryMapper.selectList();
+//        return categoryMapper.findCategoryList();
     }
 }
